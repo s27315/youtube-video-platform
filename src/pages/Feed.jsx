@@ -8,7 +8,7 @@ import { useVideos } from "../hooks/useVideos";
 
 const Feed = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const { data, isLoading, isError, error } = useVideos(selectedCategory);
+  const { data, isLoading, isError, error } = useVideos();
 
   const videos = data?.items || [];
 

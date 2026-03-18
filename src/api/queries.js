@@ -1,48 +1,52 @@
 import { fetchFromAPI } from "./fetchFromAPI";
 
-export const getVideosByCategory = async (category) => {
-  return fetchFromAPI("/search", {
+export const getHomeVideos = async () => {
+  return fetchFromAPI("search", {
     part: "snippet",
-    q: category === "All" ? "trending" : category,
+    q: "music memes gaming coding",
     type: "video",
+    maxResults: 24,
   });
 };
 
 export const getSearchResults = async (searchTerm) => {
-  return fetchFromAPI("/search", {
+  return fetchFromAPI("search", {
     part: "snippet",
     q: searchTerm,
-    type: "video,channel",
+    type: "video",
+    maxResults: 24,
   });
 };
 
 export const getVideoDetails = async (videoId) => {
-  return fetchFromAPI("/videos", {
-    part: "snippet,statistics,contentDetails",
+  return fetchFromAPI("videos", {
+    part: "snippet,statistics",
     id: videoId,
   });
 };
 
 export const getRelatedVideos = async (videoId) => {
-  return fetchFromAPI("/search", {
+  return fetchFromAPI("search", {
     part: "snippet",
     relatedToVideoId: videoId,
     type: "video",
+    maxResults: 12,
   });
 };
 
 export const getChannelDetails = async (channelId) => {
-  return fetchFromAPI("/channels", {
-    part: "snippet,statistics,brandingSettings,contentDetails",
+  return fetchFromAPI("channels", {
+    part: "snippet,statistics",
     id: channelId,
   });
 };
 
 export const getChannelVideos = async (channelId) => {
-  return fetchFromAPI("/search", {
+  return fetchFromAPI("search", {
     part: "snippet",
     channelId,
-    order: "date",
     type: "video",
+    order: "date",
+    maxResults: 24,
   });
 };
