@@ -2,13 +2,15 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import CategoryPills from "../components/CategoryPills";
 import VideoCard from "../components/VideoCard";
+import VideoPlayer from "../components/VideoPlayer";
 import Loader from "../components/Loader";
 import ErrorState from "../components/ErrorState";
 import { useVideos } from "../hooks/useVideos";
 
 const Feed = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const { data, isLoading, isError, error } = useVideos();
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const { data, isLoading, isError, error } = useVideos(selectedCategory);
 
   const videos = data?.items || [];
 
@@ -25,6 +27,12 @@ const Feed = () => {
           setSelectedCategory={setSelectedCategory}
         />
 
+        {selectedVideo && (
+          <div className="video-player-container">
+            <VideoPlayer videoId={selectedVideo} />
+          </div>
+        )}
+
         {isLoading && <Loader />}
 
         {isError && (
@@ -38,7 +46,11 @@ const Feed = () => {
             {videos
               .filter((item) => item.id?.videoId)
               .map((video) => (
-                <VideoCard key={video.id.videoId} video={video} />
+                <VideoCard
+                  key={video.id.videoId}
+                  video={video}
+                  onClick={() => setSelectedVideo(video.id.videoId)}
+                />
               ))}
           </div>
         )}

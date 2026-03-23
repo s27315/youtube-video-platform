@@ -1,27 +1,13 @@
-import { Link } from "react-router-dom";
-
-const VideoCard = ({ video }) => {
-  const videoId = video?.id?.videoId;
-  const snippet = video?.snippet;
-
+const VideoCard = ({ video, onClick }) => {
   return (
-    <div className="video-card">
-      <Link to={`/video/${videoId}`}>
-        <img
-          src={snippet?.thumbnails?.high?.url}
-          alt={snippet?.title}
-          className="thumbnail"
-        />
-      </Link>
-
+    <div className="video-card" onClick={onClick}>
+      <img 
+        src={video.snippet.thumbnails.medium.url} 
+        alt={video.snippet.title}
+      />
       <div className="video-info">
-        <Link to={`/video/${videoId}`} className="video-title">
-          {snippet?.title}
-        </Link>
-
-        <Link to={`/channel/${snippet?.channelId}`} className="channel-name">
-          {snippet?.channelTitle}
-        </Link>
+        <h3>{video.snippet.title}</h3>
+        <p>{video.snippet.channelTitle}</p>
       </div>
     </div>
   );

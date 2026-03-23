@@ -1,16 +1,15 @@
-import ReactPlayer from "react-player";
+import YouTube from "react-youtube";
 
 const VideoPlayer = ({ videoId }) => {
-  return (
-    <div className="player-wrapper">
-      <ReactPlayer
-        url={`https://www.youtube.com/watch?v=${videoId}`}
-        controls
-        width="100%"
-        height="100%"
-      />
-    </div>
-  );
+  const opts = {
+    height: "390",
+    width: "100%",
+    playerVars: {
+      autoplay: 1,
+    },
+  };
+
+  return <YouTube videoId={videoId} opts={opts} />;
 };
 
 export default VideoPlayer;
